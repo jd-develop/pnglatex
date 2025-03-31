@@ -39,15 +39,15 @@ declare -r VERSION=0.13
 # Add margin, border and padding to the image.
 function box {
     if [ "$PADDING" ]; then
-        convert $PNGFILE -bordercolor $BACKGROUND -border $(scale $PADDING) $PNGFILE
+        magick $PNGFILE -bordercolor $BACKGROUND -border $(scale $PADDING) $PNGFILE
     fi
 
     if [ "$BORDER" ]; then
-        convert $PNGFILE -bordercolor $BORDER -border $(scale 1) $PNGFILE
+        magick $PNGFILE -bordercolor $BORDER -border $(scale 1) $PNGFILE
     fi
 
     if [ "$MARGIN" ]; then
-        convert $PNGFILE -bordercolor $BACKGROUND -border $(scale $MARGIN) $PNGFILE
+        magick $PNGFILE -bordercolor $BACKGROUND -border $(scale $MARGIN) $PNGFILE
     fi
 }
 
@@ -182,7 +182,7 @@ function main {
     fi
 
     if [ "$PADDING" ] || [ "$BORDER" ] || [ "$MARGIN" ]; then
-        if ! exists convert; then
+        if ! exists magick; then
             echo "Paddings, borders and margins require imagemagick package." >&2
             exit 1
         fi
